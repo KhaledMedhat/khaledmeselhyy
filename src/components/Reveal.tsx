@@ -8,12 +8,15 @@ export function Reveal({
   className = "",
   children,
   threshold = 0.2,
+  scrub = false,
   ...rest
 }: {
   as?: "div" | "section" | "header" | "article";
   className?: string;
   children: ReactNode;
   threshold?: number;
+  /** Tie this element's lines to scroll position (see Scrub). */
+  scrub?: boolean;
   id?: string;
   style?: CSSProperties;
 }) {
@@ -37,7 +40,7 @@ export function Reveal({
   }, [threshold]);
 
   return (
-    <Tag ref={ref} className={`${className} ${seen ? "in-view" : ""}`.trim()} {...rest}>
+    <Tag ref={ref} className={`${className} ${seen ? "in-view" : ""}`.trim()} data-scrub={scrub ? "" : undefined} {...rest}>
       {children}
     </Tag>
   );

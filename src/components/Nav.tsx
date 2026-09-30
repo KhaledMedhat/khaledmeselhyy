@@ -8,8 +8,8 @@ import { Reveal } from "./Reveal";
 const links = [
   { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
+  { href: "#showcase", label: "Case study" },
   { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
 ];
 
 export function Nav() {
@@ -44,7 +44,7 @@ export function Nav() {
         ))}
       </nav>
       <a href="#contact" className="nav-cta">
-        Say hello
+        Contact
       </a>
       <button
         type="button"

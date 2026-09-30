@@ -1,15 +1,17 @@
 // Everything you need to personalise lives in this file.
-// Values in [BRACKETS] are placeholders to replace.
+// Values in [BRACKETS] are placeholders: until you replace them, the site simply leaves them out.
+
+export const isSet = (v?: string | null): v is string => !!v && !v.trim().startsWith("[");
 
 export const site = {
   name: { first: "Khaled", last: "Meselhy" },
-  role: "Full Stack Web Developer",
+  role: "Full-Stack Developer",
   location: "Cairo, Egypt",
-  title: "Khaled Meselhy — Full Stack Web Developer",
+  title: "Khaled Meselhy — Full-Stack Developer",
   description:
-    "Khaled Meselhy is a Full Stack Web Developer in Cairo, Egypt, building with React, Next.js, Node.js, MongoDB and PostgreSQL.",
+    "Khaled Meselhy is a full-stack developer in Cairo, Egypt, building web applications with React, Next.js, Node.js, MongoDB and PostgreSQL.",
   /** Put your photo in /public (e.g. /public/khaled.jpg) and set its path here. */
-  portrait: undefined as string | undefined,
+  portrait: "[/khaled.jpg]",
   /** Put your CV in /public (e.g. /public/khaled-meselhy-cv.pdf) and set its path here. */
   cv: "[CV URL]",
   email: "[YOUR EMAIL]",
@@ -23,22 +25,23 @@ export const site = {
 
 export const intro = {
   // The middle part gets an underline that draws in.
-  before: "Hey, I'm Khaled — a curious Full Stack Web Developer who loves ",
-  underline: "turning ideas into real, working products.",
+  before: "I'm Khaled, a full-stack developer who turns ideas into ",
+  underline: "reliable, well-crafted web products.",
   after: "",
-  body: "With 3+ years of experience, I've been coding with React, Next.js, Node.js, MongoDB and PostgreSQL, building everything from sleek frontends to reliable backends.",
+  body: "For more than three years I've built applications with React, Next.js, Node.js, MongoDB and PostgreSQL — owning the work end to end, from polished interfaces to the APIs and data models behind them.",
   facts: [
     { k: "Experience", v: "3+ years" },
     { k: "Based in", v: "Cairo, Egypt" },
-    { k: "Focus", v: "Full stack web" },
+    { k: "Focus", v: "Full-stack web applications" },
   ],
 };
 
 export type Project = {
   name: string;
+  kind: string;
   summary: string;
   href: string;
-  /** Screenshot in /public, e.g. "/projects/gallery-studio.jpg". Without it a drawn wireframe shows. */
+  /** Screenshot in /public, e.g. "/projects/gallery-studio.jpg". */
   image?: string;
   note?: string;
 };
@@ -46,21 +49,24 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: "Gallery Studio",
+    kind: "Social platform",
     summary:
-      "A modern web application that connects creators and audiences through visual storytelling — showcasing and interacting with posts and comments, similar to Instagram.",
+      "A social platform where creators publish visual work and audiences respond through posts and comments — an Instagram-style experience built from the ground up.",
     href: "#showcase",
   },
   {
     name: "Audiophile",
+    kind: "E-commerce",
     summary:
-      "A simple e-commerce web application for high-end audio equipment. Browse and purchase gear from a wide range of brands and models.",
+      "An online store for premium audio equipment, letting customers browse and purchase products across a wide range of brands and models.",
     href: "[AUDIOPHILE URL]",
-    note: "Frontend Mentor Challenge",
+    note: "Frontend Mentor challenge",
   },
   {
     name: "Personal Portfolio",
+    kind: "Client website",
     summary:
-      "A modern portfolio website designed to connect work with opportunity, showcasing a client's work, skills and personality in a professional yet visually appealing way.",
+      "A portfolio site built for a client to present their work, skills and personality — professional in structure, distinctive in feel.",
     href: "[PORTFOLIO URL]",
   },
 ];
@@ -68,25 +74,37 @@ export const projects: Project[] = [
 export const showcase = {
   project: "Gallery Studio",
   headline: "Bringing creators and audiences together through real-time visual posts.",
-  // Feature cells, taken from how the project is described.
+  summary:
+    "Gallery Studio gives creators a single place to publish their work and gives audiences a direct way to engage with it. Posts, comments and reactions come together in one focused, visual feed.",
   features: [
-    { title: "Visual storytelling", text: "Creators share their work as image-led posts." },
-    { title: "Comments", text: "Audiences respond and start conversations under every post." },
-    { title: "Real-time", text: "New posts and reactions arrive as they happen." },
-    { title: "Creators & audiences", text: "One place for the people who make and the people who watch." },
+    { title: "Visual storytelling", text: "Image-led posts that put the creator's work first." },
+    { title: "Conversation", text: "Comments that turn every post into a discussion." },
+    { title: "Real-time", text: "New posts and reactions appear as they happen." },
+    { title: "Community", text: "One platform connecting the people who make with the people who follow." },
   ],
   outcome: "[Paste the Gallery Studio outcome paragraph from your current site here.]",
-  technologies: ["[Tech]", "[Tech]", "[Tech]", "[Tech]", "[Tech]", "[Tech]"],
+  technologies: ["[Tech]", "[Tech]", "[Tech]"],
   href: "[GALLERY STUDIO URL]",
 };
 
 export const skills = {
-  heading: "When I'm not coding, I'm exploring new tech and experimenting with side projects.",
-  aside: "Or actually gaming. My goal? Keep learning, keep improving, and keep building things that make an impact.",
-  list: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "NestJS", "Tailwind CSS", "HTML", "CSS", "MongoDB", "PostgreSQL"],
+  heading: "The stack I build with",
+  aside: "Always learning — exploring new technologies and building side projects to keep sharpening the craft.",
+  /** The layers of the stack diagram, top to bottom. */
+  layers: [
+    { name: "Languages", items: ["JavaScript", "TypeScript", "HTML", "CSS"] },
+    { name: "Frontend", items: ["React", "Next.js", "Tailwind CSS"] },
+    { name: "Backend", items: ["Node.js", "NestJS"] },
+    { name: "Data", items: ["MongoDB", "PostgreSQL"] },
+  ],
 };
 
 export const philosophy = {
-  text: "What drives me is creating apps that don't just work but also feel great to use.",
-  more: "I care about clean code, performance, and smooth experiences — the kind of details that make people enjoy coming back.",
+  text: "I build applications that don't just work — they feel right to use.",
+  more: "Clean code, strong performance and smooth interactions: the details that make people come back.",
+};
+
+export const contact = {
+  heading: ["Let's work", "together."],
+  note: "Open to new opportunities and collaborations.",
 };
