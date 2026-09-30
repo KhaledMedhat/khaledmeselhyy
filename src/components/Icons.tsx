@@ -5,11 +5,3 @@ export function Arrow() {
     </svg>
   );
 }
-
-export function Download({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      <path d="M11 3V15M6 10L11 15L16 10M4 19H18" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  );
-}
