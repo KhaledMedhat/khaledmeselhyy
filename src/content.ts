@@ -8,6 +8,8 @@ export const site = {
   title: "Khaled Meselhy — Full Stack Web Developer",
   description:
     "Khaled Meselhy is a Full Stack Web Developer in Cairo, Egypt, building with React, Next.js, Node.js, MongoDB and PostgreSQL.",
+  /** Put your photo in /public (e.g. /public/khaled.jpg) and set its path here. */
+  portrait: undefined as string | undefined,
   /** Put your CV in /public (e.g. /public/khaled-meselhy-cv.pdf) and set its path here. */
   cv: "[CV URL]",
   email: "[YOUR EMAIL]",
@@ -20,7 +22,7 @@ export const site = {
 };
 
 export const intro = {
-  // The middle part gets a hand-drawn underline.
+  // The middle part gets an underline that draws in.
   before: "Hey, I'm Khaled — a curious Full Stack Web Developer who loves ",
   underline: "turning ideas into real, working products.",
   after: "",
@@ -36,7 +38,8 @@ export type Project = {
   name: string;
   summary: string;
   href: string;
-  art: "gallery" | "audio" | "portfolio";
+  /** Screenshot in /public, e.g. "/projects/gallery-studio.jpg". Without it a drawn wireframe shows. */
+  image?: string;
   note?: string;
 };
 
@@ -46,14 +49,12 @@ export const projects: Project[] = [
     summary:
       "A modern web application that connects creators and audiences through visual storytelling — showcasing and interacting with posts and comments, similar to Instagram.",
     href: "#showcase",
-    art: "gallery",
   },
   {
     name: "Audiophile",
     summary:
       "A simple e-commerce web application for high-end audio equipment. Browse and purchase gear from a wide range of brands and models.",
     href: "[AUDIOPHILE URL]",
-    art: "audio",
     note: "Frontend Mentor Challenge",
   },
   {
@@ -61,14 +62,13 @@ export const projects: Project[] = [
     summary:
       "A modern portfolio website designed to connect work with opportunity, showcasing a client's work, skills and personality in a professional yet visually appealing way.",
     href: "[PORTFOLIO URL]",
-    art: "portfolio",
   },
 ];
 
 export const showcase = {
   project: "Gallery Studio",
   headline: "Bringing creators and audiences together through real-time visual posts.",
-  // Callouts on the line diagram, taken from how the project is described.
+  // Feature cells, taken from how the project is described.
   features: [
     { title: "Visual storytelling", text: "Creators share their work as image-led posts." },
     { title: "Comments", text: "Audiences respond and start conversations under every post." },
