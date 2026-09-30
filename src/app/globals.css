@@ -231,3 +231,9 @@ img { display: block; max-width: 100%; }
   .footer-top { grid-template-columns: 1fr; }
   .footer-top nav { align-items: flex-start; }
 }
+
+/* The Gallery Studio screen stack fans out and turns toward you on hover. */
+@media (hover: hover) {
+  .deck-stage:hover .deck { --rx: 28deg; --rz: -14deg; }
+  .deck-stage:hover .layer { transform: translateZ(calc(var(--z) * 1.8)); }
+}

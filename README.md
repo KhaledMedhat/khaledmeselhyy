@@ -29,5 +29,5 @@ Every piece of copy lives in **`src/content.ts`**. Your real text from the curre
 
 - **Line drawing:** any SVG shape with `className="draw"` and `pathLength={1}` animates its stroke once its `<Reveal>` wrapper scrolls into view. `draw-fill` traces an outline then fills it (the logo); `draw-text` does the same for big type (your name). Stagger with `style={d(0.4)}`.
 - **Skills box (3D):** `src/components/SkillsBox.tsx`. The box leans toward the pointer, the skill tiles flip in a wave (hovering one holds it), a strip of tools slides past, and "& Much More." floats forward. The thick diagonal stripes draw out of it to the page edge.
-- **3D cards:** your photo, project screenshots and the Gallery Studio screen stack all sit in perspective and follow the mouse.
+- **3D cards:** your photo and project screenshots follow the mouse; the Gallery Studio screen stack fans out on hover.
 - All motion stops for visitors who have "reduce motion" turned on.
