@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
+import { onReady } from "./ready";
 
 /** Adds `in-view` once the element scrolls into view, which starts every `.draw` line and `.rise` block inside it. */
 export function Reveal({
@@ -35,8 +36,12 @@ export function Reveal({
       },
       { threshold },
     );
-    io.observe(el);
-    return () => io.disconnect();
+    // Nothing appears until the intro hands over to the page.
+    const off = onReady(() => io.observe(el));
+    return () => {
+      off();
+      io.disconnect();
+    };
   }, [threshold]);
 
   return (

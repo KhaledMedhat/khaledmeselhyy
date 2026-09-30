@@ -17,7 +17,12 @@ export const viewport: Viewport = { themeColor: "#171717" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <noscript>
+          <style>{`.intro{display:none}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

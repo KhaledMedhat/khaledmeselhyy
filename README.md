@@ -23,7 +23,19 @@ All copy lives in **`src/content.ts`**. Anything still in `[BRACKETS]` is simply
 
 **Logo:** `src/components/Logo.tsx` draws the K from three slanted blocks.
 
+## Intro
+
+`src/components/Intro.tsx` plays on load:
+1. Guide lines draw across the screen and frame the K, while a counter runs from 000 to 100.
+2. The K's outline traces, then its blocks fill and gain depth as it turns in 3D.
+3. The camera dives into the stem until the screen is off-white.
+4. The off-white folds into one line, the line shrinks away, and the page's lines start drawing.
+
+Click or press any key to skip it. Visitors with "reduce motion" turned on skip it automatically.
+
 ## How the lines move
+
+- The page starts with no lines. When the intro hands over (`src/components/ready.ts`), every line on screen draws in, and text and reveals wait for the same moment.
 
 - `src/components/Scrub.tsx` ties every line to scrolling. Each section gets a progress value that eases from 0 to 1 as it enters the screen, so lines draw in as a section rises into view, pull back as it leaves through the top, and everything on screen completes at the bottom of the page. Every border on the site, including the skill boxes and buttons, is drawn this way.
 - `src/components/Guides.tsx`: 12 faint column lines behind the page that grow with your scroll.

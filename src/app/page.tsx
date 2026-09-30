@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { contact, intro, isSet, philosophy, projects, showcase, site, skills } from "@/content";
 import { d } from "@/components/delay";
 import { Guides } from "@/components/Guides";
+import { Intro } from "@/components/Intro";
 import { Arrow } from "@/components/Icons";
 import { Lines } from "@/components/Lines";
 import { Nav } from "@/components/Nav";
@@ -349,6 +350,7 @@ function Contact() {
 export default function Home() {
   return (
     <>
+      <Intro />
       <Scrub />
       <Nav />
       <main>

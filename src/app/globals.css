@@ -36,7 +36,7 @@ img { display: block; max-width: 100%; }
    Each line maps that progress, offset by its own --o, to how much of it is drawn. */
 main { position: relative; }
 .guides { position: absolute; inset: 0 var(--gutter); pointer-events: none; z-index: 0; }
-.guides i { position: absolute; top: 0; height: 100%; width: 1px; background: var(--line-faint); transform-origin: 50% 0; transform: scaleY(var(--page, 0.2)); }
+.guides i { position: absolute; top: 0; height: 100%; width: 1px; background: var(--line-faint); transform-origin: 50% 0; transform: scaleY(var(--page, 0)); }
 
 .sec { position: relative; z-index: 1; padding: 0 var(--gutter); margin-bottom: clamp(72px, 9vw, 140px); }
 .grid { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
@@ -221,3 +221,49 @@ main { position: relative; }
   .layer li { position: static; transform: none; width: auto !important; height: 44px !important; }
   .chip-node { padding: 0 16px; }
 }
+
+/* ---------- Intro ---------- */
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--bg); overflow: hidden; cursor: pointer; }
+.intro .ig { position: absolute; background: var(--line); }
+.intro .ig.h, .intro .ig.h2 { left: 0; right: 0; height: 1px; transform: scaleX(0); }
+.intro .ig.v, .intro .ig.v2 { top: 0; bottom: 0; width: 1px; transform: scaleY(0); }
+.intro .ig.h { top: calc(50% - min(16vw, 130px)); transform-origin: 0 50%; }
+.intro .ig.h2 { top: calc(50% + min(16vw, 130px)); transform-origin: 100% 50%; }
+.intro .ig.v { left: calc(50% - min(16vw, 130px)); transform-origin: 50% 0; }
+.intro .ig.v2 { left: calc(50% + min(16vw, 130px)); transform-origin: 50% 100%; }
+.play .ig.h { animation: ig-x 0.9s var(--ease) 0s forwards, fade-out 0.01s linear var(--collapse) forwards; }
+.play .ig.h2 { animation: ig-x 0.9s var(--ease) 0.1s forwards, fade-out 0.01s linear var(--collapse) forwards; }
+.play .ig.v { animation: ig-y 0.9s var(--ease) 0.15s forwards, fade-out 0.01s linear var(--collapse) forwards; }
+.play .ig.v2 { animation: ig-y 0.9s var(--ease) 0.25s forwards, fade-out 0.01s linear var(--collapse) forwards; }
+@keyframes ig-x { to { transform: scaleX(1); } }
+@keyframes ig-y { to { transform: scaleY(1); } }
+
+.intro-stage { position: absolute; left: 50%; top: 50%; width: min(32vw, 260px); height: min(32vw, 260px); transform: translate(-50%, -50%); perspective: 900px; }
+.intro-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+.intro-frame path { stroke: var(--fg); stroke-opacity: 0.35; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.play .intro-frame path { animation: draw-once 0.9s var(--ease) 0.35s forwards, fade-out 0.3s ease 1.9s forwards; }
+@keyframes fade-out { to { opacity: 0; } }
+
+.intro-mark { position: absolute; inset: 22%; transform-style: preserve-3d; transform: rotateX(22deg) rotateY(-42deg); transform-origin: 25% 60%; }
+.play .intro-mark { animation: turn 1.4s cubic-bezier(0.3, 0, 0.1, 1) 0.35s forwards, dive 1s cubic-bezier(0.6, 0, 0.9, 0.3) 1.75s forwards; }
+@keyframes turn { to { transform: rotateX(12deg) rotateY(28deg); } }
+@keyframes dive { from { transform: rotateX(12deg) rotateY(28deg) scale(1); } 35% { transform: rotateX(0deg) rotateY(0deg) scale(1.15); } to { transform: rotateX(0deg) rotateY(0deg) scale(90); } }
+.intro-layer, .intro-face { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.intro-layer { transform: translateZ(var(--z)); opacity: 0; fill: color-mix(in srgb, var(--fg) var(--shade), var(--bg)); }
+.play .intro-layer { animation: fade-in 0.5s ease 1.25s forwards; }
+@keyframes fade-in { to { opacity: 1; } }
+.intro-face path { fill: transparent; stroke: var(--fg); stroke-width: 0.8; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.play .intro-face path { animation-name: draw-once, fill-in; animation-duration: 0.8s, 0.5s; animation-timing-function: var(--ease), ease; animation-fill-mode: forwards, forwards; color: var(--fg); }
+
+.intro-meta { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px; display: flex; justify-content: space-between; font-family: var(--font-mono), monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); opacity: 0; }
+.play .intro-meta { animation: fade-in 0.6s ease 0.2s forwards, fade-out 0.3s ease 1.9s forwards; }
+
+/* The camera lands in the off-white stem; that white then folds into a line and the line retracts. */
+.intro-flash { position: absolute; inset: 0; background: var(--fg); opacity: 0; transform-origin: 50% 50%; }
+.play .intro-flash { animation: flash-on 0.01s linear var(--collapse) forwards, fold-y 0.45s cubic-bezier(0.7, 0, 0.2, 1) var(--collapse) forwards, fold-x 0.45s cubic-bezier(0.7, 0, 0.2, 1) calc(var(--collapse) + 0.45s) forwards; }
+@keyframes flash-on { to { opacity: 1; } }
+@keyframes fold-y { to { transform: scaleY(0.0015); } }
+@keyframes fold-x { from { transform: scaleY(0.0015) scaleX(1); } to { transform: scaleY(0.0015) scaleX(0); } }
+.intro.play { animation: clear-bg 0.01s linear var(--collapse) forwards; }
+@keyframes clear-bg { to { background: transparent; } }
+.play .intro-stage { animation: fade-out 0.01s linear var(--collapse) forwards; }

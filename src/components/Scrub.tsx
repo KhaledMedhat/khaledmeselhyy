@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { isReady } from "./ready";
 
 /**
  * Ties every line on the page to scrolling. Each [data-scrub] element gets a --p value
@@ -21,8 +22,14 @@ export function Scrub() {
     let page = 0;
     let raf = 0;
 
-    const frame = () => {
+    let readyAt = 0;
+    const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
+      // Before the intro hands over, the page has no lines at all.
+      const ready = isReady();
+      if (ready && !readyAt) readyAt = now;
+      // The first draw after the intro is slower, so you can watch the grid build.
+      const ease = !ready ? 1 : now - readyAt < 2200 ? 0.045 : 0.12;
       const vh = window.innerHeight;
       const atEnd = window.scrollY + vh >= root.scrollHeight - 4;
       document.querySelectorAll<HTMLElement>("[data-scrub]").forEach((el) => {
@@ -35,18 +42,18 @@ export function Scrub() {
         // ...and pull back again as it leaves through the top.
         const exit = clamp01((r.bottom - vh * 0.08) / (vh * 0.45));
         // At the very bottom of the page, everything on screen is complete.
-        const target = atEnd && r.bottom > 0 ? 1 : Math.min(enter, exit);
-        const now = current.get(el) ?? 0;
-        const next = now + (target - now) * 0.12;
-        if (Math.abs(next - now) > 0.0005) {
+        const target = !ready ? 0 : atEnd && r.bottom > 0 ? 1 : Math.min(enter, exit);
+        const cur = current.get(el) ?? 0;
+        const next = cur + (target - cur) * ease;
+        if (Math.abs(next - cur) > 0.0005 || (!ready && cur !== 0)) {
           current.set(el, next);
           el.style.setProperty("--p", next.toFixed(4));
         }
       });
       const max = root.scrollHeight;
-      const pageTarget = max > 0 ? Math.min(1, (window.scrollY + vh) / max) : 1;
-      const nextPage = page + (pageTarget - page) * 0.08;
-      if (Math.abs(nextPage - page) > 0.0005) {
+      const pageTarget = !ready ? 0 : max > 0 ? Math.min(1, (window.scrollY + vh) / max) : 1;
+      const nextPage = page + (pageTarget - page) * Math.min(ease, 0.08);
+      if (Math.abs(nextPage - page) > 0.0005 || (!ready && page !== 0)) {
         page = nextPage;
         root.style.setProperty("--page", page.toFixed(4));
       }
