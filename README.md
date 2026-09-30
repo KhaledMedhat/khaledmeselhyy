@@ -35,7 +35,7 @@ Click or press any key to skip it. Visitors with "reduce motion" turned on skip 
 
 ## How the lines move
 
-- The page starts with no lines. When the intro hands over (`src/components/ready.ts`), every line on screen draws in, and text and reveals wait for the same moment.
+- The page starts with no lines. When the intro hands over (`src/components/ready.ts`), every line on screen draws in at a steady, visible speed (a full section takes about two seconds), and text and reveals wait for the same moment. Lines keep drawing at that speed as sections scroll into view.
 
 - `src/components/Scrub.tsx` ties every line to scrolling. Each section gets a progress value that eases from 0 to 1 as it enters the screen, so lines draw in as a section rises into view, pull back as it leaves through the top, and everything on screen completes at the bottom of the page. Every border on the site, including the skill boxes and buttons, is drawn this way.
 - `src/components/Guides.tsx`: 12 faint column lines behind the page that grow with your scroll.
