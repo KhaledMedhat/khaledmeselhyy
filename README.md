@@ -25,7 +25,7 @@ All copy lives in **`src/content.ts`**. Anything still in `[BRACKETS]` is simply
 
 ## How the lines move
 
-- `src/components/Scrub.tsx` ties every line to scrolling. Each section gets a progress value that eases from 0 to 1 as it enters the screen, so lines draw in as you scroll down and pull back as you scroll up.
+- `src/components/Scrub.tsx` ties every line to scrolling. Each section gets a progress value that eases from 0 to 1 as it enters the screen, so lines draw in as a section rises into view, pull back as it leaves through the top, and everything on screen completes at the bottom of the page. Every border on the site, including the skill boxes and buttons, is drawn this way.
 - `src/components/Guides.tsx`: 12 faint column lines behind the page that grow with your scroll.
 - Every section is a `.grid` of `Cell`s (`src/app/page.tsx`); each cell's top and left edges draw from that progress, staggered by the cell's `i`. `x` adds a **+** that turns into place where lines cross.
 - Projects alternate sides. With no screenshot, a project shows a straight-line composition (`src/components/Lines.tsx`); with one, the screenshot sits slightly back in 3D and turns flat on hover (`src/components/Shot.tsx`).

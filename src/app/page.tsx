@@ -324,14 +324,12 @@ function Contact() {
             )}
           </nav>
         </Cell>
-        {hasEmail && (
-          <Cell span={12} i={2} x className="mail-cell">
-            <a href={`mailto:${site.email}`} className="mail">
-              <span>{site.email}</span>
-              <Arrow />
-            </a>
-          </Cell>
-        )}
+        <Cell span={12} i={2} x className="mail-cell">
+          <a href={hasEmail ? `mailto:${site.email}` : "#contact"} className="mail">
+            <span>{hasEmail ? site.email : "Send me an email"}</span>
+            <Arrow />
+          </a>
+        </Cell>
         <Cell span={4} i={3} className="foot label">
           © {new Date().getFullYear()} {site.name.first} {site.name.last}
         </Cell>

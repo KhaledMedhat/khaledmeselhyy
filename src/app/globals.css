@@ -100,11 +100,12 @@ main { position: relative; }
 .nav-mark { width: 34px; height: 34px; color: var(--fg); }
 .nav-logo span { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
 .nav-links { display: flex; align-items: center; gap: 32px; font-size: 14px; }
-.nav-cta { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border: 1px solid var(--line); font-size: 13px; transition: background 0.3s, color 0.3s; }
-.nav-cta:hover { background: var(--fg); color: var(--bg); }
-.nav-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
+.nav-cta { --q: clamp(0.15, calc(var(--page, 0) * 1.2), 1); display: inline-flex; align-items: center; height: 40px; padding: 0 16px; font-size: 13px; transition: color 0.3s; }
+.nav-cta, .chip, .chip-node { --bc: var(--line); background: linear-gradient(var(--bc), var(--bc)) 0 0 / calc(var(--q) * 100%) 1px no-repeat, linear-gradient(var(--bc), var(--bc)) 100% 100% / calc(var(--q) * 100%) 1px no-repeat, linear-gradient(var(--bc), var(--bc)) 0 100% / 1px calc(var(--q) * 100%) no-repeat, linear-gradient(var(--bc), var(--bc)) 100% 0 / 1px calc(var(--q) * 100%) no-repeat, var(--fill, transparent); }
+.nav-cta:hover { --fill: var(--fg); color: var(--bg); }
+.nav-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; }
 .nav-progress i { position: absolute; inset: 0; background: var(--fg); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
-.menu-btn { display: none; width: 44px; height: 44px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; align-items: center; justify-content: center; }
+.menu-btn { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--fg); cursor: pointer; align-items: center; justify-content: center; }
 
 /* ---------- Hero ---------- */
 .hero { padding-top: calc(64px + clamp(32px, 5vw, 72px)); }
@@ -156,7 +157,7 @@ main { position: relative; }
 .feature b { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-top: auto; }
 .feature span { font-size: 15px; line-height: 1.55; color: var(--fg-2); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 20px; }
-.chip { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; border: 1px solid var(--line); font-size: 12px; color: var(--fg-2); }
+.chip { --q: clamp(0, calc((var(--p, 0) - 0.3) * 2.5), 1); height: 30px; padding: 0 12px; display: inline-flex; align-items: center; font-size: 12px; color: var(--fg-2); }
 
 /* ---------- Skills: stack diagram ---------- */
 .stack { position: relative; width: 100%; aspect-ratio: 1200 / 640; color: var(--fg); }
@@ -172,11 +173,11 @@ main { position: relative; }
 .layer li { position: absolute; top: 50%; transform: translateY(-50%); }
 .chip-node {
   width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0 12px;
-  background: var(--bg); color: var(--fg); border: 1px solid var(--line); font: inherit; font-size: clamp(13px, 1.2vw, 17px); font-weight: 500; cursor: default;
-  opacity: clamp(0, calc((var(--p, 0) - 0.1) * 3), 1); transition: background 0.3s, color 0.3s, border-color 0.3s;
+  --q: clamp(0, calc((var(--p, 0) - 0.08) * 2.4), 1); --fill: var(--bg); color: var(--fg); border: 0; font: inherit; font-size: clamp(13px, 1.2vw, 17px); font-weight: 500; cursor: default;
+  transition: color 0.3s;
 }
-.chip-node.lit { border-color: var(--fg); }
-.chip-node.focus { background: var(--fg); color: var(--bg); }
+.chip-node.lit { --bc: var(--fg); }
+.chip-node.focus { --fill: var(--fg); color: var(--bg); }
 .skills-aside { margin: 0; font-size: 16px; line-height: 1.7; color: var(--fg-2); max-width: 420px; }
 
 /* ---------- Quote ---------- */
@@ -213,7 +214,8 @@ main { position: relative; }
   .visual { min-height: 0; }
   .stack { aspect-ratio: auto; }
   .stack-lines { display: none; }
-  .layer { position: relative; top: auto !important; height: auto !important; padding: 20px 0; border-top: 1px solid var(--line); }
+  .layer { position: relative; top: auto !important; height: auto !important; padding: 20px 0; }
+  .layer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); transform-origin: 0 50%; transform: scaleX(clamp(0, calc((var(--p, 0) - 0.1) * 2.2), 1)); }
   .layer-name { position: static; transform: none; display: block; margin-bottom: 12px; }
   .layer ul { display: flex; flex-wrap: wrap; gap: 8px; }
   .layer li { position: static; transform: none; width: auto !important; height: 44px !important; }
