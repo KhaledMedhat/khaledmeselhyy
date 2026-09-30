@@ -1,8 +1,8 @@
 # Khaled Meselhy — Portfolio v2
 
-A dark, editorial portfolio with a real-time 3D wireframe globe (Three.js) and gold lines that draw themselves in as you scroll.
+A black-and-white portfolio where lines draw themselves in as you scroll, with a 3D skills box at its centre.
 
-Built with Next.js (App Router), React, TypeScript and `@react-three/fiber`. No CSS framework, just `src/app/globals.css`.
+Built with Next.js (App Router), React and TypeScript. No CSS framework, just `src/app/globals.css`.
 
 ## Run it
 
@@ -14,23 +14,20 @@ npm run build    # production build
 
 ## Make it yours
 
-Every piece of copy lives in **`src/content.ts`**. Replace each `[BRACKETED]` value:
+Every piece of copy lives in **`src/content.ts`**. Your real text from the current site is already in; replace the `[BRACKETED]` values that are left:
 
 | What | Where in `content.ts` |
 | --- | --- |
-| Tagline, email, city coordinates, social links | `site` |
-| Toolkit strip | `stack` |
-| Projects (first one is the large featured card) | `projects` |
-| About paragraph and the two stats | `about` |
-| Jobs on the timeline | `experience` |
+| Photo, CV, email, phone, social links | `site` (put files in `public/`) |
+| Project screenshots and links | `projects` (`image`, `href`) |
+| Extra tools on the sliding strip | `skills.more` |
+| Gallery Studio overview, outcome, tech, screenshots | `showcase` |
 
-**Project screenshots:** drop an image in `public/projects/` and set `image: "/projects/your-file.jpg"` on that project. Without an image, the card shows an animated line sketch (`sketch: "chart" | "orbit" | "layout"`).
-
-**Accent color:** change `--accent` in `src/app/globals.css`, and `ACCENT` in `src/components/Globe.tsx` for the globe.
+**Logo:** `src/components/Logo.tsx` draws the slanted-block K. If you have the exact SVG paths, swap the three `d` values.
 
 ## How the effects work
 
-- **Line drawing:** any SVG shape with `className="draw"` and `pathLength={1}` animates its stroke once its `<Reveal>` wrapper scrolls into view. Stagger with `style={d(0.4)}`.
-- **3D globe:** `src/components/Globe.tsx`. Rings draw in with `setDrawRange`, then the sphere spins and leans toward the pointer.
-- **Tilted screens:** `src/components/TiltCard.tsx` follows the mouse in 3D.
+- **Line drawing:** any SVG shape with `className="draw"` and `pathLength={1}` animates its stroke once its `<Reveal>` wrapper scrolls into view. `draw-fill` traces an outline then fills it (the logo); `draw-text` does the same for big type (your name). Stagger with `style={d(0.4)}`.
+- **Skills box (3D):** `src/components/SkillsBox.tsx`. The box leans toward the pointer, the skill tiles flip in a wave (hovering one holds it), a strip of tools slides past, and "& Much More." floats forward. The thick diagonal stripes draw out of it to the page edge.
+- **3D cards:** your photo, project screenshots and the Gallery Studio screen stack all sit in perspective and follow the mouse.
 - All motion stops for visitors who have "reduce motion" turned on.
