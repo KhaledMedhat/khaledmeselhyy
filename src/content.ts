@@ -44,6 +44,11 @@ export type Project = {
   /** Screenshot in /public, e.g. "/projects/gallery-studio.jpg". */
   image?: string;
   note?: string;
+  /** Shown in the Details panel. Leave any in [BRACKETS] to hide them. */
+  role?: string;
+  year?: string;
+  stack?: string[];
+  highlights: string[];
 };
 
 export const projects: Project[] = [
@@ -52,7 +57,15 @@ export const projects: Project[] = [
     kind: "Social platform",
     summary:
       "A social platform where creators publish visual work and audiences respond through posts and comments — an Instagram-style experience built from the ground up.",
-    href: "#showcase",
+    href: "[GALLERY STUDIO URL]",
+    role: "[YOUR ROLE]",
+    year: "[YEAR]",
+    stack: ["[Tech]", "[Tech]", "[Tech]"],
+    highlights: [
+      "Image-led posts that put each creator's work first.",
+      "Comments that turn every post into a conversation.",
+      "Posts and reactions that appear in real time.",
+    ],
   },
   {
     name: "Audiophile",
@@ -61,6 +74,14 @@ export const projects: Project[] = [
       "An online store for premium audio equipment, letting customers browse and purchase products across a wide range of brands and models.",
     href: "[AUDIOPHILE URL]",
     note: "Frontend Mentor challenge",
+    role: "[YOUR ROLE]",
+    year: "[YEAR]",
+    stack: ["[Tech]", "[Tech]", "[Tech]"],
+    highlights: [
+      "Product browsing across a wide range of brands and models.",
+      "A complete path from product page to purchase.",
+      "Built to a professional design specification.",
+    ],
   },
   {
     name: "Personal Portfolio",
@@ -68,24 +89,16 @@ export const projects: Project[] = [
     summary:
       "A portfolio site built for a client to present their work, skills and personality — professional in structure, distinctive in feel.",
     href: "[PORTFOLIO URL]",
+    role: "[YOUR ROLE]",
+    year: "[YEAR]",
+    stack: ["[Tech]", "[Tech]", "[Tech]"],
+    highlights: [
+      "Presents the client's work, skills and personality in one place.",
+      "A clear structure that reads as professional.",
+      "A visual identity that stays distinctive.",
+    ],
   },
 ];
-
-export const showcase = {
-  project: "Gallery Studio",
-  headline: "Bringing creators and audiences together through real-time visual posts.",
-  summary:
-    "Gallery Studio gives creators a single place to publish their work and gives audiences a direct way to engage with it. Posts, comments and reactions come together in one focused, visual feed.",
-  features: [
-    { title: "Visual storytelling", text: "Image-led posts that put the creator's work first." },
-    { title: "Conversation", text: "Comments that turn every post into a discussion." },
-    { title: "Real-time", text: "New posts and reactions appear as they happen." },
-    { title: "Community", text: "One platform connecting the people who make with the people who follow." },
-  ],
-  outcome: "[Paste the Gallery Studio outcome paragraph from your current site here.]",
-  technologies: ["[Tech]", "[Tech]", "[Tech]"],
-  href: "[GALLERY STUDIO URL]",
-};
 
 export const skills = {
   heading: "The stack I build with",

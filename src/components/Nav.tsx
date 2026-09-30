@@ -8,7 +8,6 @@ import { Reveal } from "./Reveal";
 const links = [
   { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
-  { href: "#showcase", label: "Case study" },
   { href: "#skills", label: "Skills" },
 ];
 

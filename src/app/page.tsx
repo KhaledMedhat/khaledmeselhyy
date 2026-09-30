@@ -1,40 +1,14 @@
-import type { CSSProperties, ReactNode } from "react";
-import { contact, intro, isSet, philosophy, projects, showcase, site, skills } from "@/content";
+import type { ReactNode } from "react";
+import { contact, intro, isSet, philosophy, projects, site, skills } from "@/content";
 import { d } from "@/components/delay";
+import { Cell, Grid, external, pad2 } from "@/components/Grid";
 import { Guides } from "@/components/Guides";
 import { Intro } from "@/components/Intro";
 import { Arrow } from "@/components/Icons";
-import { Lines } from "@/components/Lines";
 import { Nav } from "@/components/Nav";
-import { Reveal } from "@/components/Reveal";
 import { Scrub } from "@/components/Scrub";
-import { Shot } from "@/components/Shot";
+import { ProjectRow } from "@/components/ProjectRow";
 import { Stack } from "@/components/Stack";
-
-const external = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {});
-const pad2 = (n: number) => String(n).padStart(2, "0");
-
-/**
- * One cell of a section grid. Its top and left edges draw with scroll; `i` sets how far
- * behind the others it starts. `x` puts a + on its top-left corner.
- */
-function Cell({ span, i = 0, x, className = "", style, children }: { span: number; i?: number; x?: boolean; className?: string; style?: CSSProperties; children?: ReactNode }) {
-  return (
-    <div className={`cell s${span} ${className}`} style={{ "--o": Math.min(0.4, i * 0.05).toFixed(2), ...style } as CSSProperties}>
-      {x && <i className="x" aria-hidden="true" />}
-      {children}
-    </div>
-  );
-}
-
-/** A section grid whose lines follow the scroll. */
-function Grid({ className = "", children, id }: { className?: string; children: ReactNode; id?: string }) {
-  return (
-    <Reveal className={`grid ${className}`} scrub id={id}>
-      {children}
-    </Reveal>
-  );
-}
 
 function Head({ n, title, side }: { n: number; title: string; side: ReactNode }) {
   return (
@@ -128,139 +102,17 @@ function Work() {
           </>
         }
       />
-      {projects.map((p, i) => {
-        const flip = i % 2 === 1;
-        const live = isSet(p.href);
-        const num = (
-          <Cell key="n" span={1} i={flip ? 2 : 0} className="num-cell">
-            <span className="num label">{pad2(i + 1)}</span>
-          </Cell>
-        );
-        const text = (
-          <Cell key="t" span={5} i={1} className="txt-cell">
-            <div className="proj-text">
-              <div>
-                <span className="kind label">
-                  <span className="m-only">{pad2(i + 1)} · </span>
-                  {p.kind}
-                </span>
-                <h3 className="mask">
-                  <span style={d(0.15)}>{p.name}</span>
-                </h3>
-                <p className="rise" style={d(0.3)}>
-                  {p.summary} {p.note && <span className="note">{p.note}.</span>}
-                </p>
-              </div>
-              {live && (
-                <a href={p.href} className="go link-u rise" style={d(0.45)} {...external(p.href)}>
-                  {p.href.startsWith("#") ? "Read the case study" : "View project"} <Arrow />
-                </a>
-              )}
-            </div>
-          </Cell>
-        );
-        const visual = (
-          <Cell key="v" span={6} i={flip ? 0 : 2} className="vis-cell">
-            <div className="visual">{isSet(p.image) ? <Shot image={p.image} alt={`${p.name} screenshot`} /> : <Lines variant={i} />}</div>
-          </Cell>
-        );
-        return (
-          <Grid key={p.name} className={`proj ${flip ? "flip" : ""}`}>
-            {flip ? [visual, text, num] : [num, text, visual]}
-          </Grid>
-        );
-      })}
+      {projects.map((p, i) => (
+        <ProjectRow key={p.name} p={p} i={i} />
+      ))}
     </section>
-  );
-}
-
-function Case() {
-  const tech = showcase.technologies.filter(isSet);
-  const hasOutcome = isSet(showcase.outcome);
-  return (
-    <section className="sec case" id="showcase">
-      <Head
-        n={2}
-        title={showcase.project}
-        side={
-          <>
-            <span className="label">Case study</span>
-            <span className="label">{projects.find((p) => p.name === showcase.project)?.kind}</span>
-          </>
-        }
-      />
-      <Grid>
-        <Cell span={7} i={0}>
-          <h3 className="rise">{showcase.headline}</h3>
-        </Cell>
-        <Cell span={5} i={1}>
-          <p className="body rise" style={d(0.15)}>
-            {showcase.summary}
-          </p>
-        </Cell>
-        {showcase.features.map((f, k) => (
-          <Cell key={f.title} span={3} i={2 + k} x className="m6">
-            <div className="feature rise" style={d(0.25 + k * 0.1)}>
-              <span className="label">{pad2(k + 1)}</span>
-              <b>{f.title}</b>
-              <span>{f.text}</span>
-            </div>
-          </Cell>
-        ))}
-        {(hasOutcome || tech.length > 0 || isSet(showcase.href)) && (
-          <>
-            <Cell span={hasOutcome ? 7 : 12} i={6}>
-              {hasOutcome ? (
-                <>
-                  <span className="label">Outcome</span>
-                  <p className="body rise" style={{ ...d(0.4), marginTop: 16 }}>
-                    {showcase.outcome}
-                  </p>
-                </>
-              ) : (
-                <CaseLinks tech={tech} />
-              )}
-            </Cell>
-            {hasOutcome && (
-              <Cell span={5} i={7}>
-                <CaseLinks tech={tech} />
-              </Cell>
-            )}
-          </>
-        )}
-      </Grid>
-    </section>
-  );
-}
-
-function CaseLinks({ tech }: { tech: string[] }) {
-  return (
-    <>
-      {tech.length > 0 && (
-        <>
-          <span className="label">Technologies</span>
-          <div className="chips">
-            {tech.map((t) => (
-              <span key={t} className="chip mono">
-                {t}
-              </span>
-            ))}
-          </div>
-        </>
-      )}
-      {isSet(showcase.href) && (
-        <a href={showcase.href} className="go link-u" {...external(showcase.href)}>
-          Visit {showcase.project} <Arrow />
-        </a>
-      )}
-    </>
   );
 }
 
 function Skills() {
   return (
     <section className="sec" id="skills">
-      <Head n={3} title="Skills" side={<p className="skills-aside">{skills.aside}</p>} />
+      <Head n={2} title="Skills" side={<p className="skills-aside">{skills.aside}</p>} />
       <Grid>
         <Cell span={12} i={0}>
           <h3 className="statement rise" style={{ marginBottom: "clamp(24px, 3vw, 48px)" }}>
@@ -298,7 +150,7 @@ function Contact() {
       <Grid>
         <Cell span={8} i={0} x>
           <span className="label" style={{ display: "block", marginBottom: 14 }}>
-            04
+            03
           </span>
           <h2>
             {contact.heading.map((line, k) => (
@@ -357,7 +209,6 @@ export default function Home() {
         <Guides />
         <Hero />
         <Work />
-        <Case />
         <Skills />
         <Quote />
         <Contact />
