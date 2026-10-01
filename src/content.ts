@@ -112,6 +112,33 @@ export const skills = {
   ],
 };
 
+/** Libraries and tools, shown as a filterable index under the stack diagram. Logos live in Libraries.tsx. */
+export const libraries = {
+  heading: "Libraries & tools",
+  note: "The pieces I reach for most often on top of the core stack.",
+  groups: ["Data & API", "Auth", "UI & Motion", "Services", "Tooling"] as const,
+  items: [
+    { name: "Redux", group: "Data & API", role: "State" },
+    { name: "React Query", group: "Data & API", role: "Server state" },
+    { name: "tRPC", group: "Data & API", role: "Typed APIs" },
+    { name: "Prisma", group: "Data & API", role: "ORM" },
+    { name: "Drizzle", group: "Data & API", role: "ORM" },
+    { name: "NextAuth.js", group: "Auth", role: "Auth" },
+    { name: "Clerk", group: "Auth", role: "Auth" },
+    { name: "JWT", group: "Auth", role: "Tokens" },
+    { name: "shadcn/ui", group: "UI & Motion", role: "Components" },
+    { name: "GSAP", group: "UI & Motion", role: "Animation" },
+    { name: "Framer Motion", group: "UI & Motion", role: "Animation" },
+    { name: "Stripe", group: "Services", role: "Payments" },
+    { name: "Resend", group: "Services", role: "Email" },
+    { name: "Socket.IO", group: "Services", role: "Realtime" },
+    { name: "Firebase", group: "Services", role: "Backend" },
+    { name: "Docker", group: "Tooling", role: "Containers" },
+    { name: "Git", group: "Tooling", role: "Version control" },
+    { name: "Storybook", group: "Tooling", role: "UI workshop" },
+  ],
+};
+
 export const philosophy = {
   text: "I build applications that don't just work — they feel right to use.",
   more: "Clean code, strong performance and smooth interactions: the details that make people come back.",

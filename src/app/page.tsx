@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
-import { contact, intro, isSet, philosophy, projects, site, skills } from "@/content";
+import { contact, intro, isSet, libraries, philosophy, projects, site, skills } from "@/content";
 import { d } from "@/components/delay";
 import { Cell, Grid, external, pad2 } from "@/components/Grid";
 import { Guides } from "@/components/Guides";
 import { Intro } from "@/components/Intro";
+import { Libraries } from "@/components/Libraries";
 import { Arrow } from "@/components/Icons";
 import { Nav } from "@/components/Nav";
 import { Scrub } from "@/components/Scrub";
@@ -119,6 +120,19 @@ function Skills() {
             {skills.heading}
           </h3>
           <Stack />
+        </Cell>
+      </Grid>
+      <Grid className="libs-sec">
+        <Cell span={8} i={0} x>
+          <h3 className="statement rise">{libraries.heading}</h3>
+        </Cell>
+        <Cell span={4} i={1} x>
+          <p className="skills-aside rise" style={d(0.15)}>
+            {libraries.note}
+          </p>
+        </Cell>
+        <Cell span={12} i={2} style={{ padding: 0 }}>
+          <Libraries />
         </Cell>
       </Grid>
     </section>

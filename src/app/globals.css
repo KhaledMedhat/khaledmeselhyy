@@ -189,10 +189,14 @@ main { position: relative; }
 /* ---------- Skills: stack diagram ---------- */
 .stack { position: relative; width: 100%; aspect-ratio: 1200 / 640; color: var(--fg); }
 .stack-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.stack .link { stroke-opacity: 0.45; stroke-width: 1.2; transition: stroke-opacity 0.3s; }
-.stack .flow { stroke-dasharray: 3 11; stroke-width: 1.2; opacity: clamp(0, calc((var(--p, 0) - 0.85) * 7), 0.9); animation: flow 1.6s linear infinite; }
-.stack .on .link { stroke-opacity: 1; }
-.stack .on .flow { stroke-width: 2; }
+/* Connectors are hidden until a skill is hovered; then they draw out, carry flowing dashes, and retract. */
+.conn-line { stroke-width: 1.4; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.45s var(--ease); }
+.conn.on .conn-line { stroke-dashoffset: 0; transition: stroke-dashoffset 0.9s var(--ease); }
+.stack .flow { stroke-dasharray: 3 11; stroke-width: 2; opacity: 0; transition: opacity 0.2s; animation: flow 1.2s linear infinite; }
+.conn.on .flow { opacity: 0.9; transition: opacity 0.3s ease 0.7s; }
+.conn-end { opacity: 0; transition: opacity 0.2s; }
+.conn.on .conn-end { opacity: 1; transition: opacity 0.3s ease 0.75s; }
+.stack-hint { position: absolute; right: 0; bottom: 0; margin: 0; opacity: clamp(0, calc((var(--p, 0) - 0.6) * 3), 1); }
 @keyframes flow { to { stroke-dashoffset: -14; } }
 .layer { position: absolute; left: 0; right: 0; }
 .layer-name { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
@@ -206,6 +210,30 @@ main { position: relative; }
 .chip-node.lit { --bc: var(--fg); }
 .chip-node.focus { --fill: var(--fg); color: var(--bg); }
 .skills-aside { margin: 0; font-size: 16px; line-height: 1.7; color: var(--fg-2); max-width: 420px; }
+
+/* ---------- Libraries ---------- */
+.libs-sec { margin-top: clamp(48px, 6vw, 96px); }
+.libs-filter { display: flex; flex-wrap: wrap; gap: 4px 28px; padding: var(--pad); }
+.libs-tab { display: inline-flex; align-items: baseline; gap: 8px; min-height: 44px; padding: 0; background: none; border: 0; color: var(--muted); font: inherit; font-size: 15px; cursor: pointer; transition: color 0.3s; background-image: linear-gradient(var(--fg), var(--fg)); background-repeat: no-repeat; background-position: 0 calc(100% - 8px); background-size: 0 1px; transition: color 0.3s, background-size 0.5s var(--ease); }
+.libs-tab:hover { color: var(--fg); }
+.libs-tab.on { color: var(--fg); background-size: 100% 1px; }
+.libs-tab:focus-visible { outline: 1px solid var(--fg); outline-offset: 4px; }
+.libs-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.lib { position: relative; display: flex; flex-direction: column; gap: 14px; min-height: clamp(150px, 13vw, 190px); padding: 18px var(--pad) 22px; transition: background 0.35s, color 0.35s; }
+.lib::before, .lib::after { content: ""; position: absolute; background: var(--line); pointer-events: none; }
+.lib::before { left: 0; right: 0; top: 0; height: 1px; transform-origin: 0 50%; transform: scaleX(clamp(0, calc((var(--p, 0) - var(--o, 0)) * 2.2), 1)); }
+.lib::after { left: 0; top: 0; bottom: 0; width: 1px; transform-origin: 50% 0; transform: scaleY(clamp(0, calc((var(--p, 0) - var(--o, 0) - 0.08) * 2.2), 1)); }
+.lib-top { display: flex; justify-content: space-between; gap: 8px; font-size: 10px; }
+.lib-logo { flex: 1; display: flex; align-items: center; }
+.lib-logo svg { width: clamp(26px, 2.4vw, 34px); height: clamp(26px, 2.4vw, 34px); fill: currentColor; opacity: clamp(0, calc((var(--p, 0) - var(--o, 0) - 0.25) * 3), 1); transform: scale(calc(0.6 + 0.4 * clamp(0, calc((var(--p, 0) - var(--o, 0) - 0.25) * 3), 1))); transition: transform 0.5s var(--out); }
+.lib-name { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+.lib:hover { background: var(--fg); color: var(--bg); }
+.lib:hover .label { color: var(--bg); }
+.lib.dim:hover .label { color: var(--muted); }
+.lib:hover .lib-logo svg { transform: scale(1.12) rotate(-6deg); }
+.lib > * { transition: opacity 0.4s; }
+.lib.dim > * { opacity: 0.16; }
+.lib.dim:hover { background: none; color: var(--fg); }
 
 /* ---------- Quote ---------- */
 .quote p { margin: 0; font-size: clamp(28px, 3.6vw, 54px); line-height: 1.12; letter-spacing: -0.025em; font-weight: 450; }
@@ -221,6 +249,9 @@ main { position: relative; }
 .foot { font-size: 12px; }
 
 /* ---------- Responsive ---------- */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .libs-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .nav-links.open { display: flex; position: fixed; top: 64px; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; padding: 12px var(--gutter) 24px; background: var(--bg); border-bottom: 1px solid var(--line); font-size: 22px; }
@@ -242,6 +273,9 @@ main { position: relative; }
   .visual { min-height: 0; }
   .stack { aspect-ratio: auto; }
   .stack-lines { display: none; }
+  .stack-hint { position: static; margin-top: 16px; }
+  .libs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lib { min-height: 140px; }
   .layer { position: relative; top: auto !important; height: auto !important; padding: 20px 0; }
   .layer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); transform-origin: 0 50%; transform: scaleX(clamp(0, calc((var(--p, 0) - 0.1) * 2.2), 1)); }
   .layer-name { position: static; transform: none; display: block; margin-bottom: 12px; }

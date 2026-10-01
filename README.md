@@ -19,6 +19,7 @@ All copy lives in **`src/content.ts`**. Anything still in `[BRACKETS]` is simply
 - `site`: photo (`portrait`), CV, email, social links
 - `projects`: links, `image` for each screenshot (put files in `public/projects/`), and the Details panel: `role`, `year`, `stack` and `highlights`
 - `skills.layers`: the layers and tools in the stack diagram (positions and connectors live in `src/components/Stack.tsx`)
+- `libraries`: the libraries & tools grid (logos are matched by name in `src/components/Libraries.tsx`)
 
 **Logo:** `src/components/Logo.tsx` draws the K from three slanted blocks.
 
@@ -41,6 +42,7 @@ Click or press any key to skip it. Visitors with "reduce motion" turned on skip 
 - Every section is a `.grid` of `Cell`s (`src/app/page.tsx`); each cell's top and left edges draw from that progress, staggered by the cell's `i`. `x` adds a **+** that turns into place where lines cross.
 - Each project has a **Details** toggle (`src/components/ProjectRow.tsx`). It unfolds a spec sheet under the project (overview, numbered highlights, stack and link) whose lines draw in as it opens and fold away when closed. Empty fields are left out.
 - Projects alternate sides. With no screenshot, a project shows a straight-line composition (`src/components/Lines.tsx`); with one, the screenshot sits slightly back in 3D and turns flat on hover (`src/components/Shot.tsx`).
-- Skills are a stack diagram (`src/components/Stack.tsx`): languages → frontend → backend → data, joined by right-angled connectors that draw with scroll and then carry a steady flow of dashes. Hover a skill to trace its connections.
+- Skills are a stack diagram (`src/components/Stack.tsx`): languages → frontend → backend → data. Only the boxes show until you hover (or tap) a skill; then its right-angled connectors draw out to the skills it links to, carry a flow of dashes, and retract when you move away. The links are listed in `LINKS` at the top of that file.
+- Libraries & tools (`src/components/Libraries.tsx`): an 18-cell index of the libraries you use, each with its logo (from [Simple Icons](https://simpleicons.org), CC0), name and role. A filter row dims everything outside the chosen group. Edit the list in `libraries` in `src/content.ts`.
 
 Colors live as variables at the top of `src/app/globals.css`. Visitors with "reduce motion" turned on see every line fully drawn and still.
