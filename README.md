@@ -26,9 +26,9 @@ All copy lives in **`src/content.ts`**. Anything still in `[BRACKETS]` is simply
 
 `src/components/Intro.tsx` plays on load:
 1. Guide lines draw across the screen and frame the K, while a counter runs from 000 to 100.
-2. The K's outline traces, then it fills into a solid, flat-colored block (no shading) that turns in 3D.
-3. The camera dives into the stem until the screen is off-white.
-4. The off-white folds into one line, the line shrinks away, and the page's lines start drawing.
+2. The K's outline traces with a bold off-white edge; it turns in 3D as a dark block, with a fainter back edge showing its depth (no fill, no shading).
+3. The camera dives into the stem as the edges fade into the dark.
+4. A single line draws across the middle and pulls back, and the page's lines start drawing.
 
 Click or press any key to skip it. Visitors with "reduce motion" turned on skip it automatically.
 

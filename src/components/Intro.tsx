@@ -8,13 +8,13 @@ const BLOCKS = ["M4 98L30 2H52L26 98Z", "M40 50L76 2H100L59 50Z", "M42 58H62L80 
 const DEPTH = 28;
 
 // Timeline, in ms from when the intro starts.
-const T = { collapse: 2750, ready: 3200, done: 3700 };
+const T = { collapse: 2750, ready: 3250, done: 3800 };
 
 /**
  * Opening sequence: guide lines draw across the screen and frame the K, its outline traces,
- * the blocks fill and gain depth as the mark turns in 3D, then the camera dives into the stem
- * until the screen is off-white. That white collapses into a single line, the line shrinks
- * away, and the page's grid starts drawing where it was.
+ * and it turns in 3D as a dark block edged in off-white, front and back. The camera dives into
+ * the stem as the edges fade into the dark, a single line draws across the middle and pulls
+ * back, and the page's grid starts drawing where it was.
  */
 export function Intro() {
   const [phase, setPhase] = useState<"idle" | "play" | "gone">("idle");
@@ -79,7 +79,7 @@ export function Intro() {
 
       <div className="intro-stage">
         <div className="intro-mark">
-          {/* Solid depth: tightly stacked copies behind the face, all one flat color */}
+          {/* Depth: tightly stacked dark copies form the body of the block (same color as the background) */}
           {Array.from({ length: DEPTH }, (_, i) => (
             <svg key={i} className="intro-layer" viewBox="0 0 100 100" style={{ "--z": `${-(i + 1) * 0.8}px` } as React.CSSProperties}>
               {BLOCKS.map((d) => (
@@ -87,9 +87,16 @@ export function Intro() {
               ))}
             </svg>
           ))}
+          {/* The back edge, a fainter outline that shows the thickness as the K turns */}
+          <svg className="intro-face intro-back" viewBox="0 0 100 100" fill="none" style={{ "--z": `${-DEPTH * 0.8}px` } as React.CSSProperties}>
+            {BLOCKS.map((d, i) => (
+              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.9 + i * 0.15}s, 2.25s` }} />
+            ))}
+          </svg>
+          {/* The front edge: an outline only, no fill */}
           <svg className="intro-face" viewBox="0 0 100 100" fill="none">
             {BLOCKS.map((d, i) => (
-              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.5 + i * 0.15}s, ${1.15 + i * 0.1}s` }} />
+              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.5 + i * 0.15}s, 2.3s` }} />
             ))}
           </svg>
         </div>
@@ -104,7 +111,7 @@ export function Intro() {
         <span ref={count}>000</span>
       </div>
 
-      {/* The off-white the camera lands in, which collapses into a line */}
+      {/* The line that draws across the middle and pulls back into the page */}
       <div className="intro-flash" />
     </div>
   );
