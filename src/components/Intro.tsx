@@ -5,7 +5,7 @@ import { markReady } from "./ready";
 
 // The K's three blocks (same shapes as Logo.tsx).
 const BLOCKS = ["M4 98L30 2H52L26 98Z", "M40 50L76 2H100L59 50Z", "M42 58H62L80 98H56Z"];
-const DEPTH = 18;
+const DEPTH = 28;
 
 // Timeline, in ms from when the intro starts.
 const T = { collapse: 2750, ready: 3200, done: 3700 };
@@ -79,9 +79,9 @@ export function Intro() {
 
       <div className="intro-stage">
         <div className="intro-mark">
-          {/* Extruded depth: stacked copies behind the face */}
+          {/* Solid depth: tightly stacked copies behind the face, all one flat color */}
           {Array.from({ length: DEPTH }, (_, i) => (
-            <svg key={i} className="intro-layer" viewBox="0 0 100 100" style={{ "--z": `${-(i + 1) * 1.6}px`, "--shade": `${62 - i * 2.8}%` } as React.CSSProperties}>
+            <svg key={i} className="intro-layer" viewBox="0 0 100 100" style={{ "--z": `${-(i + 1) * 0.8}px` } as React.CSSProperties}>
               {BLOCKS.map((d) => (
                 <path key={d} d={d} />
               ))}

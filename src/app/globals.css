@@ -277,7 +277,7 @@ main { position: relative; }
 @keyframes turn { to { transform: rotateX(12deg) rotateY(28deg); } }
 @keyframes dive { from { transform: rotateX(12deg) rotateY(28deg) scale(1); } 35% { transform: rotateX(0deg) rotateY(0deg) scale(1.15); } to { transform: rotateX(0deg) rotateY(0deg) scale(90); } }
 .intro-layer, .intro-face { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.intro-layer { transform: translateZ(var(--z)); opacity: 0; fill: color-mix(in srgb, var(--fg) var(--shade), var(--bg)); }
+.intro-layer { transform: translateZ(var(--z)); opacity: 0; fill: var(--fg); shape-rendering: crispEdges; }
 .play .intro-layer { animation: fade-in 0.5s ease 1.25s forwards; }
 @keyframes fade-in { to { opacity: 1; } }
 .intro-face path { fill: transparent; stroke: var(--fg); stroke-width: 0.8; stroke-dasharray: 1; stroke-dashoffset: 1; }
