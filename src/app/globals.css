@@ -108,7 +108,7 @@ main { position: relative; }
 /* ---------- Nav ---------- */
 .nav {
   position: fixed; top: 10px; left: var(--gutter); right: var(--gutter); z-index: 50; height: 56px; padding: 0 12px 0 18px;
-  display: flex; align-items: center; justify-content: space-between; gap: 24px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
   background: linear-gradient(180deg, rgba(240, 237, 230, 0.07), rgba(240, 237, 230, 0.025)), rgba(23, 23, 23, 0.45);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: inset 0 1px 0 rgba(240, 237, 230, 0.07), 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -119,9 +119,9 @@ main { position: relative; }
 .nav-links { display: flex; align-items: center; gap: 32px; font-size: 14px; }
 .nav-cta { --q: clamp(0.15, calc(var(--page, 0) * 1.2), 1); display: inline-flex; align-items: center; height: 40px; padding: 0 16px; font-size: 13px; transition: color 0.3s; }
 .nav-cta, .chip, .chip-node { --bc: var(--line); background: linear-gradient(var(--bc), var(--bc)) 0 0 / calc(var(--q) * 100%) 1px no-repeat, linear-gradient(var(--bc), var(--bc)) 100% 100% / calc(var(--q) * 100%) 1px no-repeat, linear-gradient(var(--bc), var(--bc)) 0 100% / 1px calc(var(--q) * 100%) no-repeat, linear-gradient(var(--bc), var(--bc)) 100% 0 / 1px calc(var(--q) * 100%) no-repeat, var(--fill, transparent); }
-.nav-cta { --fill: var(--glass); border-radius: 10px; }
+.nav-cta { --fill: var(--glass); }
 .nav-cta:hover { --fill: var(--fg); color: var(--bg); }
-.nav-progress { position: absolute; left: 14px; right: 14px; bottom: 0; height: 1px; }
+.nav-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; }
 .nav-progress i { position: absolute; inset: 0; background: var(--fg); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
 .menu-btn { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--fg); cursor: pointer; align-items: center; justify-content: center; }
 
@@ -271,7 +271,7 @@ main { position: relative; }
 }
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .nav-links.open { display: flex; position: absolute; top: calc(100% + 8px); left: 0; right: 0; border-radius: 14px; flex-direction: column; align-items: flex-start; gap: 0; padding: 12px 20px 20px; background: rgba(23, 23, 23, 0.94); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: inset 0 1px 0 rgba(240, 237, 230, 0.07); font-size: 22px; }
+  .nav-links.open { display: flex; position: absolute; top: calc(100% + 8px); left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; padding: 12px 20px 20px; background: rgba(23, 23, 23, 0.94); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: inset 0 1px 0 rgba(240, 237, 230, 0.07); font-size: 22px; }
   .nav-links.open a { padding: 10px 0; }
   .nav-cta, .nav-logo span { display: none; }
   .menu-btn { display: inline-flex; }
