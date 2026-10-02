@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { K_PATHS, K_VIEWBOX } from "./Logo";
 import { markReady } from "./ready";
 
-// The K's three blocks (same shapes as Logo.tsx).
-const BLOCKS = ["M4 98L30 2H52L26 98Z", "M40 50L76 2H100L59 50Z", "M42 58H62L80 98H56Z"];
+// The K's two halves (same shapes as the header logo).
+const BLOCKS = K_PATHS;
+
+
 const DEPTH = 28;
 
 // Timeline, in ms from when the intro starts.
@@ -81,22 +84,22 @@ export function Intro() {
         <div className="intro-mark">
           {/* Depth: tightly stacked dark copies form the body of the block (same color as the background) */}
           {Array.from({ length: DEPTH }, (_, i) => (
-            <svg key={i} className="intro-layer" viewBox="0 0 100 100" style={{ "--z": `${-(i + 1) * 0.8}px` } as React.CSSProperties}>
+            <svg key={i} className="intro-layer" viewBox={K_VIEWBOX} style={{ "--z": `${-(i + 1) * 0.8}px` } as React.CSSProperties}>
               {BLOCKS.map((d) => (
                 <path key={d} d={d} />
               ))}
             </svg>
           ))}
           {/* The back edge, a fainter outline that shows the thickness as the K turns */}
-          <svg className="intro-face intro-back" viewBox="0 0 100 100" fill="none" style={{ "--z": `${-DEPTH * 0.8}px` } as React.CSSProperties}>
+          <svg className="intro-face intro-back" viewBox={K_VIEWBOX} fill="none" style={{ "--z": `${-DEPTH * 0.8}px` } as React.CSSProperties}>
             {BLOCKS.map((d, i) => (
-              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.9 + i * 0.15}s, 2.25s` }} />
+              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.9 + i * 0.25}s, 2.25s` }} />
             ))}
           </svg>
           {/* The front edge: an outline only, no fill */}
-          <svg className="intro-face" viewBox="0 0 100 100" fill="none">
+          <svg className="intro-face" viewBox={K_VIEWBOX} fill="none">
             {BLOCKS.map((d, i) => (
-              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.5 + i * 0.15}s, 2.3s` }} />
+              <path key={d} d={d} pathLength={1} style={{ animationDelay: `${0.5 + i * 0.25}s, 2.3s` }} />
             ))}
           </svg>
         </div>

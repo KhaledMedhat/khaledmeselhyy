@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { contact, intro, isSet, libraries, philosophy, projects, site, skills } from "@/content";
 import { d } from "@/components/delay";
 import { Cell, Grid, external, pad2 } from "@/components/Grid";
+import { Glow } from "@/components/Glow";
 import { Guides } from "@/components/Guides";
 import { Intro } from "@/components/Intro";
 import { Libraries } from "@/components/Libraries";
@@ -22,7 +23,7 @@ function Head({ n, title, side }: { n: number; title: string; side: ReactNode })
           <span style={d(0.15)}>{title}</span>
         </h2>
       </Cell>
-      <Cell span={4} i={2} x>
+      <Cell span={4} i={2} x className="glass">
         <div className="head-side rise" style={d(0.3)}>
           {side}
         </div>
@@ -75,7 +76,7 @@ function Hero() {
             {intro.body}
           </p>
         </Cell>
-        <Cell span={4} i={5} x>
+        <Cell span={4} i={5} x className="glass">
           <div className="facts">
             {intro.facts.map((f, k) => (
               <div key={f.k} className="fact rise" style={d(0.7 + k * 0.1)}>
@@ -146,7 +147,7 @@ function Quote() {
         <Cell span={8} i={0} x>
           <p className="rise">{philosophy.text}</p>
         </Cell>
-        <Cell span={4} i={1} x>
+        <Cell span={4} i={1} x className="glass">
           <p className="more rise" style={d(0.2)}>
             {philosophy.more}
           </p>
@@ -177,7 +178,7 @@ function Contact() {
             {contact.note}
           </p>
         </Cell>
-        <Cell span={4} i={1} x>
+        <Cell span={4} i={1} x className="glass">
           <nav className="links rise" style={d(0.4)} aria-label="Social">
             {socials.map((s) => (
               <a key={s.label} href={s.href} className="link-u" {...external(s.href)}>
@@ -218,6 +219,7 @@ export default function Home() {
     <>
       <Intro />
       <Scrub />
+      <Glow />
       <Nav />
       <main>
         <Guides />

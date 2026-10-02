@@ -2,7 +2,7 @@
 
 The personal portfolio of **Khaled Meselhy**, a full-stack developer in Cairo, Egypt.
 
-It is built around one idea: a page drawn in lines. The layout is a visible 12-column grid whose lines draw themselves in as you scroll, in two colors only, near-black `#171717` and off-white `#f0ede6`.
+It is built around one idea: a page drawn in lines. The layout is a visible 12-column grid whose lines draw themselves in as you scroll, in two colors only, near-black `#171717` and off-white `#f0ede6`, with frosted-glass surfaces over soft light that drifts behind the page.
 
 ## Highlights
 
@@ -11,6 +11,7 @@ It is built around one idea: a page drawn in lines. The layout is a visible 12-c
 - **Selected work.** Projects alternate sides. Each one has a **Details** panel that unfolds a spec sheet (overview, highlights, stack, link) whose lines draw as it opens.
 - **Stack diagram.** Languages → frontend → backend → data. Hover or tap a skill and its connectors draw out to the skills it links to.
 - **Libraries & tools.** A filterable index of the libraries I use, with their logos.
+- **Glass.** A floating glass nav, frosted skill boxes, panels and side cells, over faint light that drifts and follows the cursor.
 - **Accessible by default.** Keyboard-friendly controls, and everything appears fully drawn and still for visitors who prefer reduced motion.
 
 ## Tech
@@ -60,7 +61,8 @@ src/
     ProjectRow.tsx   project rows and their Details panels
     Stack.tsx        stack diagram and its connectors
     Libraries.tsx    libraries & tools grid
-    Logo.tsx         the K mark
+    Logo.tsx         the K mark (two curved halves)
+    Glow.tsx         drifting light behind the glass
   content.ts         all copy and data
 ```
 
